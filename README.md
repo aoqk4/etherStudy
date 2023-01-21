@@ -8,12 +8,12 @@
 
     - Based Language : JavaScript
 
-    - operation
-    - Comparisons and Logic(AND, OR, EQ, LT, GT...)
-    - Jump
-    - Validation
+    1. operation
+    2. Comparisons and Logic(AND, OR, EQ, LT, GT...)
+    3. Jump
+    4. Validation
 
 ## Day2 Goal
 
-    - testing Logic
-    - Simple BlockChain tutorial..
+    1. testing Logic
+    2. Simple BlockChain tutorial..
