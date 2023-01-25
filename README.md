@@ -2,7 +2,9 @@
 
 ## Udemy 영상으로 학습한 것 개인 정리한 것.
 
-## Day1. Interpreter Tutorial
+## 코드의 주석에 조금 더 자세한 내용을 넣었음.
+
+## Day 1. Interpreter Tutorial
 
 ### impl for SmartContract in Interpreter Class
 
@@ -13,18 +15,29 @@
 3. Jump
 4. Validation
 
-## Day2 Goal
+## Day 2 Goal
 
 1. testing Logic
 2. Simple BlockChain tutorial..
 
-## Day2. Testing with Jest & simple blockchain
+## Day 2. Testing with Jest & simple blockchain
 
 1. Testing Day1 SmartContract interpreter with JS Jest(testing framework?).
 2. Make simple Blockchain Class & genesis Block
 3. Make Util fun(sortCharacters())
 
-## Day3 Goal
+## Day 3 Goal
 
 1. Understand Hash...
 2. impl Based Mining For an Ethereum
+
+## Day 3. Impl Hash with keccakHash & Impl - Test sample mine Block
+
+1. Hash Overview & Impl Hash with keccakHash (sortCharacters() and Use Hash algorithm)
+2. Impl and test sample Mine Block
+
+## Day 4 Goal
+
+1. Adjust Difficulty
+2. Validate Block?
+3. Validate Block method test
