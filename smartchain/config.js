@@ -9,6 +9,14 @@ const GENESIS_DATA = {
   },
 };
 
+const MILLISECONDS = 1;
+
+const SECONDS = 1000 * MILLISECONDS;
+
+// 속도 기준을 13초로 한다.
+const MINE_RATE = 13 * SECONDS;
+
 module.exports = {
   GENESIS_DATA,
+  MINE_RATE,
 };

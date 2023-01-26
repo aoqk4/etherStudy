@@ -41,3 +41,11 @@
 1. Adjust Difficulty
 2. Validate Block?
 3. Validate Block method test
+
+## Day 4. Adjust Difficulty for mineBlock
+
+1. Adjust Difficulty for mine Block & jest Test.
+
+## Day 5 Goal
+
+1. Validate Block
