@@ -6,7 +6,18 @@ class BlockChain {
   }
 
   addBlock({ block }) {
-    this.chain.push(block);
+    return new Promise((resolve, reject) => {
+      Block.validateBlock({
+        lastBlock: this.chain[this.chain.length - 1],
+        block,
+      })
+        .then((result) => {
+          this.chain.push(block);
+
+          return resolve();
+        })
+        .catch((err) => reject(err));
+    });
   }
 }
 

@@ -86,5 +86,55 @@ class Block {
   static genesis = () => {
     return new Block(GENESIS_DATA);
   };
+
+  // 올바른 블록이 전달되고 있는지 확인하는 함수
+  static validateBlock({ lastBlock, block }) {
+    return new Promise((resolve, reject) => {
+      // genesis block은 해시로 검사한다.
+
+      if (keccakHash(block) === keccakHash(Block.genesis())) {
+        return resolve();
+      }
+
+      if (
+        keccakHash(lastBlock.blockHeaders) !== block.blockHeaders.parentHash
+      ) {
+        return reject(
+          new Error(
+            "The parent hash must be a hash of the last block's headers"
+          )
+        );
+      }
+
+      if (block.blockHeaders.number !== lastBlock.blockHeaders.number + 1) {
+        return reject(new Error("The block must increment the number by 1"));
+      }
+
+      if (
+        Math.abs(
+          lastBlock.blockHeaders.difficulty - block.blockHeaders.difficulty
+        ) > 1
+      ) {
+        return reject(new Error("The difficulty must only adjust by 1"));
+      }
+
+      const target = Block.calculateBlockTargetHash({ lastBlock });
+      const { blockHeaders } = block;
+      const { nonce } = blockHeaders;
+
+      const truncatedBlockHeaders = { ...blockHeaders };
+      delete truncatedBlockHeaders.nonce;
+
+      const header = keccakHash(truncatedBlockHeaders);
+      const underTargetHash = keccakHash(header + nonce);
+
+      if (underTargetHash > target) {
+        return reject(
+          new Error("The block not meet the proof of work requirement")
+        );
+      }
+      return resolve();
+    });
+  }
 }
 module.exports = Block;

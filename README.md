@@ -49,3 +49,12 @@
 ## Day 5 Goal
 
 1. Validate Block
+
+## Day 5. Validae Block method with JS promise & Overview Block chain network
+
+1. Validae Block method with JS promise & jest test
+2. Overview Block chain network(HTTP API & PUB / SUB)
+
+## Day6 Goal
+
+1. Simple Network method for HTTP API & PUB / SUB
