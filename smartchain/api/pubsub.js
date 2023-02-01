@@ -3,8 +3,8 @@ require("dotenv").config();
 const PubNub = require("pubnub");
 
 const credentials = {
-  publishKey: "pub-c-0ecb37da-fb96-40df-8fb5-90951c489399",
-  subscribeKey: "sub-c-b54cebc1-4657-4375-98e4-9c6af4fccc5b",
+  publishKey: process.env.publishKey,
+  subscribeKey: process.env.subscribeKey,
   secretKey: process.env.SECRET_KEY,
   userId: "ljs",
 };
