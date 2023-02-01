@@ -58,3 +58,8 @@
 ## Day6 Goal
 
 1. Simple Network method for HTTP API & PUB / SUB
+
+## Day 6. impl blockchain API & PUB / SUB system
+
+1. impl HTTP blockchain API use express.js
+2. impl PUB / SUB sys use PubNub

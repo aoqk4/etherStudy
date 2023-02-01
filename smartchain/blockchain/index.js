@@ -5,6 +5,7 @@ class BlockChain {
     this.chain = [Block.genesis()];
   }
 
+  // catch에 에러도 담겨 있고, reject는 err가 떳다는 전제하에 실행된다.
   addBlock({ block }) {
     return new Promise((resolve, reject) => {
       Block.validateBlock({
@@ -16,7 +17,7 @@ class BlockChain {
 
           return resolve();
         })
-        .catch((err) => reject(err));
+        .catch(reject);
     });
   }
 }
