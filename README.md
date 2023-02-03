@@ -63,3 +63,12 @@
 
 1. impl HTTP blockchain API use express.js
 2. impl PUB / SUB sys use PubNub
+
+## Day 7. BroadcastBlock & Synchronization Chain
+
+1. Set root & other port(peer?) and broadcast Block (broadcastBlock() method)
+2. Synchronization validated chain all of the port(peer?) (replaceChain() method)
+
+## Day 8 Goal
+
+1. Accounts and Transactions?

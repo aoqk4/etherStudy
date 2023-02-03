@@ -20,6 +20,32 @@ class BlockChain {
         .catch(reject);
     });
   }
+
+  // 체인안에 블록들을 검사하고 바뀐 체인을 반영하기 위해서
+  replaceChain({ chain }) {
+    return new Promise(async (resolve, reject) => {
+      for (let i = 0; i < chain.length; i++) {
+        const block = chain[i];
+        const lastBlockIndex = i - 1;
+        const lastBlock = lastBlockIndex >= 0 ? chain[i - 1] : null;
+        // 비동기 방식으로 이루어지기 때문에 실시간으로 체인을 검사 X
+        // for 는 돌아가는데 한번에 두개 이상의 블록이 들어갈수도 있다는 말?
+        // await 키워드 사용하자.
+        try {
+          await Block.validateBlock({ lastBlock, block });
+        } catch (err) {
+          return reject(err);
+        }
+
+        console.log(
+          `* -- Validated block number : ${block.blockHeaders.number}`
+        );
+      }
+      this.chain = chain;
+
+      return resolve();
+    });
+  }
 }
 
 module.exports = BlockChain;
