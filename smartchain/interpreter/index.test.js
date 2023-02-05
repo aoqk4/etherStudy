@@ -1,7 +1,7 @@
-const Interpreter = require("./index");
+import Interpreter, { ONCODE_MAP } from "./index";
 
 const { STOP, ADD, SUB, MUL, DIV, PUSH, LT, GT, EQ, AND, OR, JUMP, JUMPI } =
-  Interpreter.ONCODE_MAP;
+  ONCODE_MAP;
 
 describe("Interpreter", () => {
   describe("runCode()", () => {

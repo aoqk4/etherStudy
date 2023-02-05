@@ -1,5 +1,5 @@
-const { GENESIS_DATA, MINE_RATE } = require("../config");
-const { keccakHash } = require("../util/index");
+import { GENESIS_DATA, MINE_RATE } from "../config";
+import { keccakHash } from "../util/index";
 
 const HASH_LENGTH = 64;
 const MAX_HASH_VALUE = parseInt("f".repeat(HASH_LENGTH), 16);
@@ -137,4 +137,4 @@ class Block {
     });
   }
 }
-module.exports = Block;
+export default Block;

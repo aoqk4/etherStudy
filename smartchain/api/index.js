@@ -1,8 +1,8 @@
-const express = require("express");
-const request = require("request");
-const Blockchain = require("../blockchain");
-const Block = require("../blockchain/block");
-const PubSub = require("./pubsub");
+import express from "express";
+import request from "request";
+import Blockchain from "../blockchain";
+import { mineBlock } from "../blockchain/block";
+import PubSub from "./pubsub";
 
 const app = express();
 const blockchain = new Blockchain();
@@ -17,7 +17,7 @@ app.get("/blockchain", (req, res, next) => {
 
 app.get("/blockchain/mine", (req, res, next) => {
   const lastBlock = blockchain.chain[blockchain.chain.length - 1];
-  const block = Block.mineBlock({ lastBlock });
+  const block = mineBlock({ lastBlock });
 
   blockchain
     .addBlock({ block })

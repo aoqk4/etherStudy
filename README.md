@@ -55,7 +55,7 @@
 1. Validae Block method with JS promise & jest test
 2. Overview Block chain network(HTTP API & PUB / SUB)
 
-## Day6 Goal
+## Day 6 Goal
 
 1. Simple Network method for HTTP API & PUB / SUB
 
@@ -72,3 +72,15 @@
 ## Day 8 Goal
 
 1. Accounts and Transactions?
+
+## Day 8. Account & Tranaction
+
+0. Change type : module & encryption util (elliptic)
+
+1. impl default multi key (pu, pb) Account for transaction.
+
+2. impl transaction for create account & default transaction.
+
+## Day 9 Goal
+
+1. Validate Transaction & More?

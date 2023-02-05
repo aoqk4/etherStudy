@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const PubNub = require("pubnub");
+import PubNub from "pubnub";
 
 const credentials = {
   publishKey: process.env.PUBLISH_KEY,
@@ -63,4 +63,4 @@ class PubSub {
   }
 }
 
-module.exports = PubSub;
+export default PubSub;
