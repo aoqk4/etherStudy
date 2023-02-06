@@ -40,14 +40,54 @@ class Transaction {
       },
     });
   }
+
+  static validateStandardTransaction({ trnasaction }) {
+    return new Promise((resolve, reject) => {
+      const { from, signature } = trnasaction;
+      const transactionData = { ...trnasaction };
+
+      delete transactionData.signature;
+
+      if (
+        !Account.verifySignature({
+          publicKey: from,
+          data: transactionData,
+          signature,
+        })
+      ) {
+        return reject(new Error(`Transaction: ${id} signature is invalid`));
+      }
+
+      return resolve();
+    });
+  }
+
+  static validateCreateAccountTransaction({ transaction }) {
+    return new Promise((resolve, reject) => {
+      const expectedAccountDataFields = Object.keys(new Account().toJSON());
+
+      const fields = Object.keys(transaction.data.accountData);
+
+      if (fields.length !== expectedAccountDataFields) {
+        return reject(
+          new Error(
+            `The transaction account data has an incorrectt number of fields`
+          )
+        );
+      }
+
+      fields.forEach((field) => {
+        if (!expectedAccountDataFields.includes(field)) {
+          return reject(
+            new Error(`
+          The field: ${field} is expected for account data`)
+          );
+        }
+      });
+
+      return resolve();
+    });
+  }
 }
 
 export default Transaction;
-
-const account = new Account();
-
-const transaction = Transaction.createTransaction({
-  account,
-});
-
-console.log("transaction", transaction);

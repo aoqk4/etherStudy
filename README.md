@@ -84,3 +84,15 @@
 ## Day 9 Goal
 
 1. Validate Transaction & More?
+
+## Day 9. Validate Transaction
+
+1. Validate Transaction code in Transaction Class
+
+2. Test code (but es6 jest error...)
+
+## Day 10 Goal
+
+1. Transaction Queue
+
+2. Transaction endPoint?
