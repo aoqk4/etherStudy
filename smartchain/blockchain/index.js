@@ -1,4 +1,7 @@
-import { genesis, validateBlock } from "./block";
+import Block from "./block.js";
+
+const genesis = Block.genesis;
+const validateBlock = Block.validateBlock;
 
 class BlockChain {
   constructor() {

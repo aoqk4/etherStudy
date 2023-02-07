@@ -1,12 +1,25 @@
 import express from "express";
 import request from "request";
-import Blockchain from "../blockchain";
-import { mineBlock } from "../blockchain/block";
-import PubSub from "./pubsub";
+import bodyParser from "body-parser";
+
+import mineBlock from "../blockchain/block.js";
+import Blockchain from "../blockchain/index.js";
+import Account from "../account/index.js";
+import PubSub from "./pubsub.js";
+import Transaction from "../transaction/index.js";
+import TransactionQueue from "../transaction/transaction-queue.js";
 
 const app = express();
+
+app.use(bodyParser.json());
+
 const blockchain = new Blockchain();
+const transactionQueue = new TransactionQueue();
 const pubsub = new PubSub({ blockchain });
+const account = new Account();
+const transaction = Transaction.createTransaction({ account });
+
+transactionQueue.add(transaction);
 
 // next는 객체를 처리할 수 있는 다음 미들웨어로 객체를 위임한다.
 app.get("/blockchain", (req, res, next) => {
@@ -17,7 +30,7 @@ app.get("/blockchain", (req, res, next) => {
 
 app.get("/blockchain/mine", (req, res, next) => {
   const lastBlock = blockchain.chain[blockchain.chain.length - 1];
-  const block = mineBlock({ lastBlock });
+  const block = mineBlock({ lastBlock, beneficiary: account.address });
 
   blockchain
     .addBlock({ block })
@@ -28,6 +41,18 @@ app.get("/blockchain/mine", (req, res, next) => {
       res.json({ block });
     })
     .catch(next);
+});
+
+app.post("/account/transact", (req, res, next) => {
+  const { to, value } = req.body;
+  const transaction = Transaction.createTransaction({
+    account: !to ? new Account() : account,
+    to,
+    value,
+  });
+  transactionQueue.add(transaction);
+
+  res.json({ transaction });
 });
 
 app.use((err, req, res, next) => {

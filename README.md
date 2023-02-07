@@ -96,3 +96,17 @@
 1. Transaction Queue
 
 2. Transaction endPoint?
+
+## Day 10. impl API for transaction
+
+1. Make Transaction Queue
+
+2. add Transaction in Transaction Queue
+
+3. impl Transaction API (create Account & default Transact)
+
+## Day 11 Goal
+
+1. PubSub broadCast Transaction.
+
+2. Block TransactionSeries?

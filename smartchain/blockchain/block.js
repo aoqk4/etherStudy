@@ -1,5 +1,5 @@
-import { GENESIS_DATA, MINE_RATE } from "../config";
-import { keccakHash } from "../util/index";
+import { GENESIS_DATA, MINE_RATE } from "../config.cjs";
+import { keccakHash } from "../util/index.js";
 
 const HASH_LENGTH = 64;
 const MAX_HASH_VALUE = parseInt("f".repeat(HASH_LENGTH), 16);
@@ -83,9 +83,9 @@ class Block {
     });
   }
 
-  static genesis = () => {
+  static genesis() {
     return new Block(GENESIS_DATA);
-  };
+  }
 
   // 올바른 블록이 전달되고 있는지 확인하는 함수
   static validateBlock({ lastBlock, block }) {
