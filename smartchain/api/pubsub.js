@@ -3,6 +3,8 @@ dotenv.config();
 
 import PubNub from "pubnub";
 
+import Transaction from "../transaction/index.js";
+
 const credentials = {
   publishKey: process.env.PUBLISH_KEY,
   subscribeKey: process.env.SUBSCRIBE_KEY,
@@ -13,12 +15,14 @@ const credentials = {
 const CHANNELS_MAP = {
   TEST: "TEST",
   BLOCK: "BLOCK",
+  TRANSACTION: "TRANSACTION",
 };
 
 class PubSub {
-  constructor({ blockchain }) {
+  constructor({ blockchain, transactionQueue }) {
     this.pubnub = new PubNub(credentials);
     this.blockchain = blockchain;
+    this.transactionQueue = transactionQueue;
     this.subscribeToChannels();
     this.listen();
   }
@@ -49,6 +53,11 @@ class PubSub {
               .then(() => console.log("New Block accepted"))
               .catch((err) => console.log("New Block rejected", err.message));
             break;
+          case CHANNELS_MAP.TRANSACTION:
+            console.log(`Received transaction : ${parsedMessage.id}`);
+            this.transactionQueue.add(new Transaction(parsedMessage));
+
+            break;
           default:
             return;
         }
@@ -60,6 +69,13 @@ class PubSub {
     this.publish({
       channel: CHANNELS_MAP.BLOCK,
       message: JSON.stringify(block),
+    });
+  }
+
+  broadcastTransaction(transaction) {
+    this.publish({
+      channel: CHANNELS_MAP.TRANSACTION,
+      message: JSON.stringify(transaction),
     });
   }
 }

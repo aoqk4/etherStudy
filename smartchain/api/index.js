@@ -15,11 +15,13 @@ app.use(bodyParser.json());
 
 const blockchain = new Blockchain();
 const transactionQueue = new TransactionQueue();
-const pubsub = new PubSub({ blockchain });
+const pubsub = new PubSub({ blockchain, transactionQueue });
 const account = new Account();
 const transaction = Transaction.createTransaction({ account });
 
-transactionQueue.add(transaction);
+setTimeout(() => {
+  pubsub.broadcastTransaction(transaction);
+}, 500);
 
 // next는 객체를 처리할 수 있는 다음 미들웨어로 객체를 위임한다.
 app.get("/blockchain", (req, res, next) => {
@@ -51,6 +53,7 @@ app.post("/account/transact", (req, res, next) => {
     value,
   });
   transactionQueue.add(transaction);
+  pubsub.broadcastTransaction(transaction);
 
   res.json({ transaction });
 });

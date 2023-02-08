@@ -110,3 +110,16 @@
 1. PubSub broadCast Transaction.
 
 2. Block TransactionSeries?
+
+## Day 11. Transaction Broadcast
+
+1. add broadcastTransaction method in pubsub class
+
+2. Create transaction & Push TransactionQueue & broadcast
+   in /account/transact API
+
+## Day 12 Goal
+
+1. block transacion
+
+2. World State and Running Block of Transaction Overview

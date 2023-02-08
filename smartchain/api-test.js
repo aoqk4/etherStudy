@@ -29,6 +29,6 @@ postTransact({})
   .then((res2) => {
     console.log("postTransactResult2", res2);
   });
-// postTransact({ to: "foo-recipent", value: 20 }).then((res) => {
-//   console.log("postTransactResult", res);
-// });
+postTransact({ to: "foo-recipent", value: 20 }).then((res) => {
+  console.log("postTransactResult", res);
+});
