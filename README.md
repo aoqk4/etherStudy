@@ -123,3 +123,15 @@
 1. block transacion
 
 2. World State and Running Block of Transaction Overview
+
+## Day 12. Transaction Series & make new error...
+
+0. I don't know that.. change babel & much of try...
+
+1. Transaction Series impl & test
+
+## Day 13. Goal
+
+0. fix error.......
+
+1. impl Tries for Block trasaction

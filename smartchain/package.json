@@ -2,19 +2,22 @@
   "name": "testmod",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "api-test": "node ./api-test.js",
-    "dev": "nodemon ./api",
-    "dev-peer": "nodemon ./api --peer",
-    "start": "node ./api",
-    "test": "jest --watchAll"
+    "dev": "node ./api/index.js",
+    "dev-peer": "node ./api --peer",
+    "start": "node ./api/index.js",
+    "test": "jest --watchAll",
+    "babel-version": "babel --version",
+    "babel": "babel ./ -w -d ./"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.20.7",
     "babel-jest": "^29.4.1",
     "body-parser": "^1.20.1",
     "dotenv": "^16.0.3",
@@ -27,6 +30,9 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
     "nodemon": "^2.0.20"
   }
 }

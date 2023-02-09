@@ -1,34 +1,62 @@
-import request from "request";
+"use strict";
 
-const BASE_URL = "http://localhost:3000";
-
-const postTransact = ({ to, value }) => {
-  return new Promise((resolve, reject) => {
-    request(
-      `${BASE_URL}/account/transact`,
+var _request = _interopRequireDefault(require("request"));
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule
+    ? obj
+    : {
+        default: obj,
+      };
+}
+var BASE_URL = "http://localhost:3000";
+var postTransact = function postTransact(_ref) {
+  var to = _ref.to,
+    value = _ref.value;
+  return new Promise(function (resolve, reject) {
+    (0, _request["default"])(
+      "".concat(BASE_URL, "/account/transact"),
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ to, value }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: to,
+          value: value,
+        }),
       },
-      (err, res, body) => {
+      function (err, res, body) {
         return resolve(JSON.parse(body));
       }
     );
   });
 };
-
-postTransact({})
-  .then((res) => {
-    console.log(res);
-
-    const toAccountData = res.transaction.data.accountData;
-
-    return postTransact({ to: toAccountData, value: 20 });
-  })
-  .then((res2) => {
-    console.log("postTransactResult2", res2);
+var getMine = function getMine() {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      (0,
+      _request[
+        "default"
+      ])("".concat(BASE_URL, "/blockchain/mine"), function (err, res, body) {
+        console.log(res.body);
+        return resolve(JSON.parse(body));
+      });
+    }, 1000);
   });
-postTransact({ to: "foo-recipent", value: 20 }).then((res) => {
-  console.log("postTransactResult", res);
-});
+};
+postTransact({})
+  .then(function (res) {
+    console.log(res);
+    var toAccountData = res.transaction.data.accountData;
+    return postTransact({
+      to: toAccountData,
+      value: 20,
+    });
+  })
+  .then(function (res2) {
+    console.log("postTransactResult2", res2);
+    return getMine();
+  })
+  .then(function (getMineres) {
+    console.log("getMineres", getMineres);
+  });

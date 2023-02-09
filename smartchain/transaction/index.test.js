@@ -1,56 +1,52 @@
-import Transaction from "./index.js";
-import Account from "../account/index.js";
+"use strict";
 
-describe("Transaction", () => {
-  let account, standardTransaction, createTransaction;
-
-  beforeEach(() => {
-    account = new Account();
-    standardTransaction = Transaction.createTransaction({
-      account,
+var _index = _interopRequireDefault(require("./index.js"));
+var _index2 = _interopRequireDefault(require("../account/index.js"));
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+describe("Transaction", function () {
+  var account, standardTransaction, createTransaction;
+  beforeEach(function () {
+    account = new _index2["default"]();
+    standardTransaction = _index["default"].createTransaction({
+      account: account,
       to: "foo-recipent",
-      value: 50,
+      value: 50
     });
-    createTransaction = Transaction.createTransaction({
-      account,
+    createTransaction = _index["default"].createTransaction({
+      account: account
     });
   });
-
-  describe("validateStandardTransaction()", () => {
-    it("validates a valid transaction", () => {
-      expect(
-        Transaction.validateStandardTransaction({
-          transaction,
-        })
-      ).resolves;
+  describe("validateStandardTransaction()", function () {
+    it("validates a valid transaction", function () {
+      expect(_index["default"].validateStandardTransaction({
+        transaction: transaction
+      })).resolves;
     });
-
-    it("does not validates a valid transaction", () => {
+    it("does not validates a valid transaction", function () {
       standardTransaction.to = "different-recipient";
-
-      expect(
-        Transaction.validateStandardTransaction({
-          transaction,
-        })
-      ).rejects.toMatchObject({ message: /invalid/ });
+      expect(_index["default"].validateStandardTransaction({
+        transaction: transaction
+      })).rejects.toMatchObject({
+        message: /invalid/
+      });
     });
   });
-
-  describe("validateStandardTransaction()", () => {
-    it("validates a create account transaction", () => {
-      expect(
-        Transaction.validateCreateAccountTransaction({
-          transaction,
-        })
-      ).resolves;
+  describe("validateStandardTransaction()", function () {
+    it("validates a create account transaction", function () {
+      expect(_index["default"].validateCreateAccountTransaction({
+        transaction: transaction
+      })).resolves;
     });
-
-    it("does not validates a create account transaction", () => {
-      expect(
-        Transaction.standardTransaction({
-          transaction,
-        })
-      ).rejects.toMatchObject({ message: /incorrect/ });
+    it("does not validates a create account transaction", function () {
+      expect(_index["default"].standardTransaction({
+        transaction: transaction
+      })).rejects.toMatchObject({
+        message: /incorrect/
+      });
     });
   });
 });
