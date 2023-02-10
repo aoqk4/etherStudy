@@ -1,5 +1,8 @@
 "use strict";
 
+var TransactionQueue = require("../transaction/transaction-queue");
+
+var Block = require("../blockchain/block");
 var _express = _interopRequireDefault(require("express"));
 var _request = _interopRequireDefault(require("request"));
 var _bodyParser = _interopRequireDefault(require("body-parser"));
@@ -22,7 +25,7 @@ function _interopRequireDefault(obj) {
 var app = (0, _express["default"])();
 app.use(_bodyParser["default"].json());
 var blockchain = new _index["default"]();
-var transactionQueue = new _transactionQueue["default"]();
+var transactionQueue = new TransactionQueue();
 var pubsub = new _pubsub["default"]({
   blockchain: blockchain,
   transactionQueue: transactionQueue,
@@ -44,13 +47,11 @@ app.get("/blockchain", function (req, res, next) {
 });
 app.get("/blockchain/mine", function (req, res, next) {
   var lastBlock = blockchain.chain[blockchain.chain.length - 1];
-
-  var block = _block.mineBlock({
+  var block = Block.mineBlock({
     lastBlock: lastBlock,
     beneficiary: account.address,
     transactionSeries: transactionQueue.getTransactionSeries(),
   });
-
   blockchain
     .addBlock({
       block: block,

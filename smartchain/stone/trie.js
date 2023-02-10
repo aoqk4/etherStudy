@@ -1,9 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
@@ -77,11 +73,6 @@ function _arrayLikeToArray(arr, len) {
   for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
   return arr2;
 }
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
@@ -113,32 +104,41 @@ function _toPrimitive(input, hint) {
   }
   return (hint === "string" ? String : Number)(input);
 }
-var TransactionQueue = /*#__PURE__*/function () {
-  function TransactionQueue() {
-    _classCallCheck(this, TransactionQueue);
-    // 객체로 생성하면 중복 transaction 방지에 도움이된다.
-    this.transactionMap = {};
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
   }
-  _createClass(TransactionQueue, [{
-    key: "add",
-    value: function add(transaction) {
-      this.transactionMap[transaction.id] = transaction;
+}
+var Node = /*#__PURE__*/_createClass(function Node() {
+  _classCallCheck(this, Node);
+  this.value = null;
+  this.childMap = {};
+});
+var Trie = /*#__PURE__*/function () {
+  function Trie() {
+    _classCallCheck(this, Trie);
+    this.head = new Node();
+  }
+  _createClass(Trie, [{
+    key: "get",
+    value: function get(_ref) {
+      var key = _ref.key;
     }
   }, {
-    key: "getTransactionSeries",
-    value: function getTransactionSeries() {
-      return Object.values(this.transactionMap);
-    }
-  }, {
-    key: "clearBlockTransaction",
-    value: function clearBlockTransaction(_ref) {
-      var transactionSeries = _ref.transactionSeries;
-      var _iterator = _createForOfIteratorHelper(transactionSeries),
+    key: "put",
+    value: function put(_ref2) {
+      var key = _ref2.key,
+        _put = _ref2.put;
+      var node = this.head;
+      var _iterator = _createForOfIteratorHelper(key),
         _step;
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var trnasaction = _step.value;
-          delete this.transactionMap[transaction.id];
+          var character = _step.value;
+          if (!node.childMap[character]) {
+            node.childMap[character] = new Node();
+          }
+          node = node.childMap[character];
         }
       } catch (err) {
         _iterator.e(err);
@@ -147,6 +147,6 @@ var TransactionQueue = /*#__PURE__*/function () {
       }
     }
   }]);
-  return TransactionQueue;
+  return Trie;
 }();
-module.exports = TransactionQueue;
+module.exports = Trie;

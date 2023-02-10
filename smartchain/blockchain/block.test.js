@@ -6,9 +6,7 @@ function _getRequireWildcardCache(nodeInterop) {
   if (typeof WeakMap !== "function") return null;
   var cacheBabelInterop = new WeakMap();
   var cacheNodeInterop = new WeakMap();
-  return (_getRequireWildcardCache = function _getRequireWildcardCache(
-    nodeInterop
-  ) {
+  return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) {
     return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
   })(nodeInterop);
 }
@@ -16,12 +14,9 @@ function _interopRequireWildcard(obj, nodeInterop) {
   if (!nodeInterop && obj && obj.__esModule) {
     return obj;
   }
-  if (
-    obj === null ||
-    (_typeof(obj) !== "object" && typeof obj !== "function")
-  ) {
+  if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
     return {
-      default: obj,
+      "default": obj
     };
   }
   var cache = _getRequireWildcardCache(nodeInterop);
@@ -29,13 +24,10 @@ function _interopRequireWildcard(obj, nodeInterop) {
     return cache.get(obj);
   }
   var newObj = {};
-  var hasPropertyDescriptor =
-    Object.defineProperty && Object.getOwnPropertyDescriptor;
+  var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
   for (var key in obj) {
     if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
-      var desc = hasPropertyDescriptor
-        ? Object.getOwnPropertyDescriptor(obj, key)
-        : null;
+      var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
       if (desc && (desc.get || desc.set)) {
         Object.defineProperty(newObj, key, desc);
       } else {
@@ -52,54 +44,30 @@ function _interopRequireWildcard(obj, nodeInterop) {
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
-  return (
-    (_typeof =
-      "function" == typeof Symbol && "symbol" == typeof Symbol.iterator
-        ? function (obj) {
-            return typeof obj;
-          }
-        : function (obj) {
-            return obj &&
-              "function" == typeof Symbol &&
-              obj.constructor === Symbol &&
-              obj !== Symbol.prototype
-              ? "symbol"
-              : typeof obj;
-          }),
-    _typeof(obj)
-  );
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
 }
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
-    enumerableOnly &&
-      (symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      })),
-      keys.push.apply(keys, symbols);
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
   }
   return keys;
 }
 function _objectSpread(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = null != arguments[i] ? arguments[i] : {};
-    i % 2
-      ? ownKeys(Object(source), !0).forEach(function (key) {
-          _defineProperty(target, key, source[key]);
-        })
-      : Object.getOwnPropertyDescriptors
-      ? Object.defineProperties(
-          target,
-          Object.getOwnPropertyDescriptors(source)
-        )
-      : ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(
-            target,
-            key,
-            Object.getOwnPropertyDescriptor(source, key)
-          );
-        });
+    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
   }
   return target;
 }
@@ -110,7 +78,7 @@ function _defineProperty(obj, key, value) {
       value: value,
       enumerable: true,
       configurable: true,
-      writable: true,
+      writable: true
     });
   } else {
     obj[key] = value;
@@ -134,26 +102,22 @@ function _toPrimitive(input, hint) {
 describe("Block", function () {
   describe("calculateBlockTargetHash()", function () {
     it("calculates the maximum hash when the last block difficulty is 1", function () {
-      expect(
-        (0, _block.calculateBlockTargetHash)({
-          lastBlock: {
-            blockHeaders: {
-              difficulty: 1,
-            },
-          },
-        })
-      ).toEqual("f".repeat(64));
+      expect((0, _block.calculateBlockTargetHash)({
+        lastBlock: {
+          blockHeaders: {
+            difficulty: 1
+          }
+        }
+      })).toEqual("f".repeat(64));
     });
     it("calculates a low hash value when the last block difficulty is high", function () {
-      expect(
-        (0, _block.calculateBlockTargetHash)({
-          lastBlock: {
-            blockHeaders: {
-              difficulty: 500,
-            },
-          },
-        }) < "1"
-      ).toBe(true);
+      expect((0, _block.calculateBlockTargetHash)({
+        lastBlock: {
+          blockHeaders: {
+            difficulty: 500
+          }
+        }
+      }) < "1").toBe(true);
     });
   });
   describe("mineBlock()", function () {
@@ -162,7 +126,7 @@ describe("Block", function () {
       lastBlock = (0, _block.genesis)();
       minedBlock = (0, _block.mineBlock)({
         lastBlock: lastBlock,
-        beneficiary: "beneficiary",
+        beneficiary: "beneficiary"
       });
     });
     it("mines a block", function () {
@@ -170,7 +134,7 @@ describe("Block", function () {
     });
     it("mines a block that meets the proof of work requirement", function () {
       var target = (0, _block.calculateBlockTargetHash)({
-        lastBlock: lastBlock,
+        lastBlock: lastBlock
       });
       var _minedBlock = minedBlock,
         blockHeaders = _minedBlock.blockHeaders;
@@ -184,44 +148,38 @@ describe("Block", function () {
   });
   describe("adjustDifficulty()", function () {
     it("keeps the difficulty above 0", function () {
-      expect(
-        (0, _block.adjustDifficulty)({
-          lastBlock: {
-            blockHeaders: {
-              difficulty: 0,
-            },
-          },
-          timestamp: Date.now(),
-        })
-      ).toEqual(1);
+      expect((0, _block.adjustDifficulty)({
+        lastBlock: {
+          blockHeaders: {
+            difficulty: 0
+          }
+        },
+        timestamp: Date.now()
+      })).toEqual(1);
     });
 
     // 13초 기준으로 푸는 속도 체크 했다 빠르면 올라가고 느리면 난이도 내려간다.
     it("increases the difficulty for a quickly mined block", function () {
-      expect(
-        (0, _block.adjustDifficulty)({
-          lastBlock: {
-            blockHeaders: {
-              difficulty: 5,
-              timestamp: 1000,
-            },
-          },
-          timestamp: 3000,
-        })
-      ).toEqual(6);
+      expect((0, _block.adjustDifficulty)({
+        lastBlock: {
+          blockHeaders: {
+            difficulty: 5,
+            timestamp: 1000
+          }
+        },
+        timestamp: 3000
+      })).toEqual(6);
     });
     it("decreases the difficulty for a quickly mined block", function () {
-      expect(
-        (0, _block.adjustDifficulty)({
-          lastBlock: {
-            blockHeaders: {
-              difficulty: 5,
-              timestamp: 1000,
-            },
-          },
-          timestamp: 20000,
-        })
-      ).toEqual(4);
+      expect((0, _block.adjustDifficulty)({
+        lastBlock: {
+          blockHeaders: {
+            difficulty: 5,
+            timestamp: 1000
+          }
+        },
+        timestamp: 20000
+      })).toEqual(4);
     });
   });
   describe("validateBlock()", function () {
@@ -230,55 +188,45 @@ describe("Block", function () {
       lastBlock = (0, _block.genesis)();
       block = (0, _block.mineBlock)({
         lastBlock: lastBlock,
-        beneficiary: "beneficiary",
+        beneficiary: "beneficiary"
       });
     });
     it("resolve when the block is genesis block", function () {
-      expect(
-        (0, _block.validateBlock)({
-          block: (0, _block.genesis)(),
-        })
-      ).resolves;
+      expect((0, _block.validateBlock)({
+        block: (0, _block.genesis)()
+      })).resolves;
     });
     it("resolve if block is valid", function () {
-      expect(
-        (0, _block.validateBlock)({
-          lastBlock: lastBlock,
-          block: block,
-        })
-      ).resolves;
+      expect((0, _block.validateBlock)({
+        lastBlock: lastBlock,
+        block: block
+      })).resolves;
     });
     it("reject when the parentHash is invalid", function () {
       block.blockHeaders.parentHash = "foo";
-      expect(
-        (0, _block.validateBlock)({
-          lastBlock: lastBlock,
-          block: block,
-        })
-      ).rejects.toMatchObject({
-        message: "The parent hash must be a hash of the last block's headers",
+      expect((0, _block.validateBlock)({
+        lastBlock: lastBlock,
+        block: block
+      })).rejects.toMatchObject({
+        message: "The parent hash must be a hash of the last block's headers"
       });
     });
     it("reject when the number is not increased by one", function () {
       block.blockHeaders.number = 31255;
-      expect(
-        (0, _block.validateBlock)({
-          lastBlock: lastBlock,
-          block: block,
-        })
-      ).rejects.toMatchObject({
-        message: "The block must increment the number by 1",
+      expect((0, _block.validateBlock)({
+        lastBlock: lastBlock,
+        block: block
+      })).rejects.toMatchObject({
+        message: "The block must increment the number by 1"
       });
     });
     it("reject when the difficulty adjust by more than 1", function () {
       block.blockHeaders.difficulty = 23451;
-      expect(
-        (0, _block.validateBlock)({
-          lastBlock: lastBlock,
-          block: block,
-        })
-      ).rejects.toMatchObject({
-        message: "The difficulty must only adjust by 1",
+      expect((0, _block.validateBlock)({
+        lastBlock: lastBlock,
+        block: block
+      })).rejects.toMatchObject({
+        message: "The difficulty must only adjust by 1"
       });
     });
 
@@ -286,26 +234,20 @@ describe("Block", function () {
     // 상황을 강제해서 테스트 -> 함수를 오버라이딩해서 상황을 만든다.
     it("reject when the proof of work requirement is not met", function () {
       var originalCalculateBlockTargetHash = _block.calculateBlockTargetHash;
-      _block.calculateBlockTargetHash =
-        (function calculateBlockTargetHash() {
-          return "0".repeat(64);
-        },
-        (function () {
-          throw new Error('"' + "calculateBlockTargetHash" + '" is read-only.');
-        })());
-      expect(
-        (0, _block.validateBlock)({
-          lastBlock: lastBlock,
-          block: block,
-        })
-      ).rejects.toMatchObject({
-        message: "The block not meet the proof of work requirement",
+      _block.calculateBlockTargetHash = (function calculateBlockTargetHash() {
+        return "0".repeat(64);
+      }, function () {
+        throw new Error('"' + "calculateBlockTargetHash" + '" is read-only.');
+      }());
+      expect((0, _block.validateBlock)({
+        lastBlock: lastBlock,
+        block: block
+      })).rejects.toMatchObject({
+        message: "The block not meet the proof of work requirement"
       });
-      _block.calculateBlockTargetHash =
-        (originalCalculateBlockTargetHash,
-        (function () {
-          throw new Error('"' + "calculateBlockTargetHash" + '" is read-only.');
-        })());
+      _block.calculateBlockTargetHash = (originalCalculateBlockTargetHash, function () {
+        throw new Error('"' + "calculateBlockTargetHash" + '" is read-only.');
+      }());
     });
   });
 });
