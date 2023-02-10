@@ -138,9 +138,11 @@
 
 ## Day 13. impl Tries.
 
+1. impl Tries for BlockTransactionSeries
+
+## Next Goal...
+
 0. 다음부턴 무조건 ts + babel 이다.. 중간 에러를 도저히 못찾겠다.
    --> clone 가능하나, 일단은 들을것은 다 들은 것 같다..
    --> 일단은 클론까지는 해놓고 천천히 소스 보면서 나머지 듣는거로
    (우선순위 하)
-
-1. impl Tries for BlockTransactionSeries
